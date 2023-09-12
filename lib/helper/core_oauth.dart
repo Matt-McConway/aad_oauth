@@ -1,6 +1,6 @@
 import 'package:aad_oauth/helper/choose_oauth.dart'
     // ignore: uri_does_not_exist
-    if (dart.library.io) 'package:aad_oauth/helper/mobile_oauth.dart'
+    if (dart.library.io) 'package:aad_oauth/helper/choose_vm_oauth.dart'
     // ignore: uri_does_not_exist
     if (dart.library.html) 'package:aad_oauth/helper/web_oauth.dart';
 import 'package:aad_oauth/model/config.dart';
@@ -26,8 +26,12 @@ class CoreOAuth {
   Future<String?> getIdToken() async => throw UnsupportedFailure(
       ErrorType.Unsupported, 'Unsupported getAccessToken');
 
-  factory CoreOAuth.fromConfig(Config config) =>
-      config.isStub ? MockCoreOAuth() : getOAuthConfig(config);
+  factory CoreOAuth.fromConfig(Config config) {
+    if (config.isStub) {
+      return MockCoreOAuth();
+    }
+    return getOAuthConfig(config);
+  }
 }
 
 /// Mock class for testing.

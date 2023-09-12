@@ -5,23 +5,23 @@ import 'package:aad_oauth/model/token.dart';
 import 'package:dartz/dartz.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../request_code.dart';
+import '../desktop_request_code.dart';
 import '../request_token.dart';
 import 'auth_storage.dart';
 
-class MobileOAuth extends CoreOAuth {
+class DesktopOAuth extends CoreOAuth {
   final AuthStorage _authStorage;
-  final RequestCode _requestCode;
+  final DesktopRequestCode _requestCode;
   final RequestToken _requestToken;
 
   /// Instantiating MobileAadOAuth authentication.
   /// [config] Parameters according to official Microsoft Documentation.
-  MobileOAuth(Config config)
+  DesktopOAuth(Config config)
       : _authStorage = AuthStorage(
           tokenIdentifier: config.tokenIdentifier,
           aOptions: config.aOptions,
         ),
-        _requestCode = RequestCode(config),
+        _requestCode = DesktopRequestCode(config),
         _requestToken = RequestToken(config);
 
   /// Perform Azure AD login.
